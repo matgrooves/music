@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MatGrooves</title>
+  <meta name="description" content="MatGrooves - Listen on your favorite streaming platform." />
+
+  <link rel="icon" type="image/png" sizes="512x512" href="images/logo-matgrooves.png">
+
+  <style>
+    :root {
+      --bg: #050816;
+      --card: rgba(255, 255, 255, 0.06);
+      --card-border: rgba(255, 255, 255, 0.14);
+      --text: #ffffff;
+      --muted: rgba(255, 255, 255, 0.72);
+      --blue: #28a8ff;
+      --pink: #ff3bd4;
+      --purple: #8a4dff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(40, 168, 255, 0.25), transparent 32%),
+        radial-gradient(circle at 85% 75%, rgba(255, 59, 212, 0.25), transparent 34%),
+        radial-gradient(circle at 50% 0%, rgba(138, 77, 255, 0.18), transparent 40%),
+        var(--bg);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(120deg, transparent 20%, rgba(255, 255, 255, 0.035), transparent 45%),
+        radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: auto, 80px 80px;
+      opacity: 0.7;
+    }
+
+    .page {
+      width: min(720px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 48px 0 36px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo {
+      width: 172px;
+      height: 172px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin: 0 auto 22px;
+      display: block;
+      box-shadow:
+        0 0 26px rgba(40, 168, 255, 0.42),
+        0 0 42px rgba(255, 59, 212, 0.28);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(3rem, 10vw, 5.3rem);
+      line-height: 1;
+      letter-spacing: -0.06em;
+      text-shadow: 0 10px 35px rgba(0, 0, 0, 0.45);
+    }
+
+    .subtitle {
+      margin: 18px 0 26px;
+      font-size: clamp(0.85rem, 3vw, 1.05rem);
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .subtitle span:nth-child(1) {
+      color: var(--blue);
+    }
+
+    .subtitle span:nth-child(2) {
+      color: #b96cff;
+    }
+
+    .subtitle span:nth-child(3) {
+      color: var(--pink);
+    }
+
+    .separator {
+      width: 56px;
+      height: 2px;
+      margin: 0 auto 34px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--blue), var(--pink));
+      box-shadow: 0 0 18px rgba(255, 59, 212, 0.7);
+    }
+
+    .intro {
+      margin: 0 0 22px;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .links {
+      display: grid;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .link-card {
+      min-height: 72px;
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      border-radius: 18px;
+      border: 1px solid var(--card-border);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.035));
+      color: var(--text);
+      text-decoration: none;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.22);
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .link-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.32);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.055));
+    }
+
+    .icon {
+      width: 42px;
+      height: 42px;
+      flex: 0 0 42px;
+      display: grid;
+      place-items: center;
+    }
+
+    .label {
+      flex: 1;
+      text-align: left;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .arrow {
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .connect {
+      margin: 42px 0 18px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: rgba(255, 255, 255, 0.55);
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+    }
+
+    .connect::before,
+    .connect::after {
+      content: "";
+      height: 1px;
+      flex: 1;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+    }
+
+    .wave {
+      margin: 36px auto 24px;
+      width: 140px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .wave span {
+      width: 3px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, var(--blue), var(--pink));
+      box-shadow: 0 0 14px rgba(255, 59, 212, 0.75);
+    }
+
+    .wave span:nth-child(1) {
+      height: 10px;
+    }
+
+    .wave span:nth-child(2) {
+      height: 18px;
+    }
+
+    .wave span:nth-child(3) {
+      height: 26px;
+    }
+
+    .wave span:nth-child(4) {
+      height: 42px;
+    }
+
+    .wave span:nth-child(5) {
+      height: 28px;
+    }
+
+    .wave span:nth-child(6) {
+      height: 16px;
+    }
+
+    .wave span:nth-child(7) {
+      height: 34px;
+    }
+
+    .wave span:nth-child(8) {
+      height: 22px;
+    }
+
+    .wave span:nth-child(9) {
+      height: 12px;
+    }
+
+    footer {
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 0.92rem;
+      letter-spacing: 0.18em;
+    }
+
+    @media (max-width: 520px) {
+      .page {
+        padding-top: 32px;
+      }
+
+      .logo {
+        width: 136px;
+        height: 136px;
+      }
+
+      .subtitle {
+        letter-spacing: 0.22em;
+      }
+
+      .link-card {
+        min-height: 66px;
+        border-radius: 16px;
+      }
+
+      .label {
+        font-size: 1.08rem;
+      }
+
+      .icon {
+        width: 36px;
+        height: 36px;
+        flex-basis: 36px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <img src="images/logo-matgrooves.png" alt="Logo MatGrooves" class="logo" />
+
+    <h1>MatGrooves</h1>
+
+    <p class="subtitle">
+      <span>Instrumental</span> • <span>Chill beats</span> • <span>Afro Groove</span>
+    </p>
+
+    <div class="separator"></div>
+
+    <p class="intro">🎧 Listen on your favorite platform</p>
+
+    <section class="links" aria-label="Streaming platforms">
+      <!-- Remplace les href ci-dessous par tes vrais liens artiste. -->
+
+      <a class="link-card" href="https://open.spotify.com/intl-fr/artist/0GbizfNP45s49iQ8AArk4Z" target="_blank"
+        rel="noopener noreferrer">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" width="42" height="42">
+            <circle cx="24" cy="24" r="22" fill="#1ED760" />
+            <path d="M15 18.5c6.7-2 14.3-1.4 20.2 1.8" fill="none" stroke="#121212" stroke-width="3.1"
+              stroke-linecap="round" />
+            <path d="M16.6 24.5c5.4-1.6 11.7-1.1 16.4 1.5" fill="none" stroke="#121212" stroke-width="2.7"
+              stroke-linecap="round" />
+            <path d="M18 30c4.1-1.1 8.7-.8 12.3 1.1" fill="none" stroke="#121212" stroke-width="2.3"
+              stroke-linecap="round" />
+          </svg>
+        </span>
+        <span class="label">Spotify</span>
+        <span class="arrow">›</span>
+      </a>
+
+      <a class="link-card" href="https://music.apple.com/us/artist/matgrooves/1821471674" target="_blank"
+        rel="noopener noreferrer">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" width="42" height="42">
+            <defs>
+              <linearGradient id="appleGradient" x1="8" y1="8" x2="40" y2="42">
+                <stop offset="0" stop-color="#ff5f6d" />
+                <stop offset="0.55" stop-color="#ff2d55" />
+                <stop offset="1" stop-color="#9b5cff" />
+              </linearGradient>
+            </defs>
+            <rect x="5" y="5" width="38" height="38" rx="10" fill="url(#appleGradient)" />
+            <path
+              d="M30.5 13.2v18.2c0 3.5-2.8 5.4-5.7 5.4-2.9 0-5.1-1.6-5.1-4s2.3-4.1 5.2-4.1c1 0 1.9.2 2.5.6V18.7l-12.2 2.4v12.6c0 3.4-2.8 5.3-5.7 5.3-2.9 0-5.1-1.6-5.1-4s2.3-4.1 5.2-4.1c1 0 1.9.2 2.5.6V17.3l18.4-4.1Z"
+              transform="translate(6 0)" fill="#fff" />
+          </svg>
+        </span>
+        <span class="label">Apple Music</span>
+        <span class="arrow">›</span>
+      </a>
+
+      <a class="link-card" href="https://www.deezer.com/fr/artist/330375991" target="_blank" rel="noopener noreferrer">
+        <span class="icon" aria-hidden="true">
+          <!-- Logo Deezer simplifié en SVG intégré : pas d'image externe, donc affichage fiable. -->
+          <svg viewBox="0 0 48 48" width="42" height="42">
+            <rect x="5" y="29" width="7" height="5" fill="#ffcc00" />
+            <rect x="5" y="36" width="7" height="5" fill="#ff8a00" />
+            <rect x="14" y="22" width="7" height="5" fill="#ff4f7b" />
+            <rect x="14" y="29" width="7" height="5" fill="#ff0066" />
+            <rect x="14" y="36" width="7" height="5" fill="#a333ff" />
+            <rect x="23" y="15" width="7" height="5" fill="#6a5cff" />
+            <rect x="23" y="22" width="7" height="5" fill="#006dff" />
+            <rect x="23" y="29" width="7" height="5" fill="#00a3ff" />
+            <rect x="23" y="36" width="7" height="5" fill="#00c7ff" />
+            <rect x="32" y="8" width="7" height="5" fill="#00e5a8" />
+            <rect x="32" y="15" width="7" height="5" fill="#00d66b" />
+            <rect x="32" y="22" width="7" height="5" fill="#00c853" />
+            <rect x="32" y="29" width="7" height="5" fill="#00b894" />
+            <rect x="32" y="36" width="7" height="5" fill="#00a3ff" />
+          </svg>
+        </span>
+        <span class="label">Deezer</span>
+        <span class="arrow">›</span>
+      </a>
+
+      <a class="link-card" href="https://music.youtube.com/channel/UCzD1lZ4MoaHRwWWc1Sd_SBA" target="_blank"
+        rel="noopener noreferrer">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" width="42" height="42">
+            <circle cx="24" cy="24" r="22" fill="#ff0000" />
+            <circle cx="24" cy="24" r="15" fill="none" stroke="#fff" stroke-width="2.4" />
+            <path d="M21 17.5 31.5 24 21 30.5Z" fill="#fff" />
+          </svg>
+        </span>
+        <span class="label">YouTube Music</span>
+        <span class="arrow">›</span>
+      </a>
+
+      <a class="link-card" href="https://music.amazon.fr/artists/B0FD3WL5TV/matgrooves" target="_blank"
+        rel="noopener noreferrer">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" width="42" height="42">
+            <text x="4" y="22" fill="#16c7ff" font-family="Arial, Helvetica, sans-serif" font-size="14"
+              font-weight="700">music</text>
+            <path d="M7 30c7.5 5.9 19.8 7.1 30.2.5" fill="none" stroke="#16c7ff" stroke-width="2.7"
+              stroke-linecap="round" />
+            <path d="M34 30.1l5.5-.9-2.1 5" fill="none" stroke="#16c7ff" stroke-width="2.2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </span>
+        <span class="label">Amazon Music</span>
+        <span class="arrow">›</span>
+      </a>
+
+      <a class="link-card" href="https://tidal.com/artist/62105147" target="_blank" rel="noopener noreferrer">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" width="42" height="42">
+            <rect x="20" y="8" width="8" height="8" transform="rotate(45 24 12)" fill="#fff" />
+            <rect x="10" y="18" width="8" height="8" transform="rotate(45 14 22)" fill="#fff" />
+            <rect x="20" y="18" width="8" height="8" transform="rotate(45 24 22)" fill="#fff" />
+            <rect x="30" y="18" width="8" height="8" transform="rotate(45 34 22)" fill="#fff" />
+            <rect x="20" y="28" width="8" height="8" transform="rotate(45 24 32)" fill="#fff" />
+          </svg>
+        </span>
+        <span class="label">Tidal</span>
+        <span class="arrow">›</span>
+      </a>
+    </section>
+
+    <div class="connect">Connect</div>
+
+    <a class="link-card" href="https://www.instagram.com/MatGrooves" target="_blank" rel="noopener noreferrer">
+      <span class="icon" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="42" height="42">
+          <defs>
+            <radialGradient id="instaGradient" cx="30%" cy="100%" r="100%">
+              <stop offset="0" stop-color="#ffdc80" />
+              <stop offset="0.25" stop-color="#fcaf45" />
+              <stop offset="0.5" stop-color="#f77737" />
+              <stop offset="0.7" stop-color="#e1306c" />
+              <stop offset="1" stop-color="#833ab4" />
+            </radialGradient>
+          </defs>
+          <rect x="5" y="5" width="38" height="38" rx="10" fill="url(#instaGradient)" />
+          <rect x="14" y="14" width="20" height="20" rx="6" fill="none" stroke="#fff" stroke-width="3" />
+          <circle cx="24" cy="24" r="5.5" fill="none" stroke="#fff" stroke-width="3" />
+          <circle cx="31.5" cy="16.5" r="2" fill="#fff" />
+        </svg>
+      </span>
+      <span class="label">Instagram</span>
+      <span class="arrow">›</span>
+    </a>
+
+    <div class="wave" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+    </div>
+
+    <footer>© 2026 MatGrooves</footer>
+  </main>
+</body>
+
+</html>

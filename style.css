@@ -1,0 +1,218 @@
+:root {
+  --bg: #050615;
+  --card: rgba(7, 10, 30, 0.7);
+  --text: #ffffff;
+  --muted: #a7a8bd;
+  --line: rgba(255, 255, 255, 0.12);
+  --blue: #2476ff;
+  --pink: #ff2ebf;
+  --purple: #8c4dff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 10% 20%, rgba(36, 118, 255, 0.32), transparent 28%),
+    radial-gradient(circle at 90% 70%, rgba(255, 46, 191, 0.34), transparent 30%),
+    radial-gradient(circle at 50% 10%, rgba(140, 77, 255, 0.22), transparent 30%),
+    var(--bg);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(120deg, transparent 20%, rgba(255,255,255,0.04), transparent 45%),
+    radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
+  background-size: 100% 100%, 90px 90px;
+  opacity: 0.55;
+}
+
+.page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 40px 18px;
+}
+
+.card {
+  width: min(100%, 720px);
+  padding: 44px 20px 30px;
+  text-align: center;
+  position: relative;
+}
+
+.logo {
+  width: 118px;
+  height: 118px;
+  margin: 0 auto 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-weight: 900;
+  font-size: 38px;
+  letter-spacing: -4px;
+  background: #050712;
+  border: 2px solid transparent;
+  background-image: linear-gradient(#050712, #050712), linear-gradient(135deg, var(--blue), var(--pink));
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  box-shadow: 0 0 42px rgba(140, 77, 255, 0.45);
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(3.2rem, 9vw, 5.8rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+  text-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+}
+
+.tagline {
+  margin: 20px 0 0;
+  color: #d9d7ff;
+  text-transform: uppercase;
+  letter-spacing: clamp(0.16em, 1vw, 0.42em);
+  font-size: clamp(0.78rem, 2.2vw, 1.1rem);
+}
+
+.separator {
+  width: 70px;
+  height: 3px;
+  margin: 32px auto;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--blue), var(--pink));
+}
+
+.intro {
+  margin: 0 0 22px;
+  color: var(--muted);
+  font-size: clamp(1.05rem, 2.5vw, 1.35rem);
+}
+
+.links {
+  display: grid;
+  gap: 14px;
+  margin: 0 auto;
+}
+
+.link-button {
+  width: min(100%, 620px);
+  margin-inline: auto;
+  min-height: 76px;
+  padding: 14px 22px;
+  display: grid;
+  grid-template-columns: 58px 1fr 24px;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 750;
+  font-size: clamp(1.05rem, 2.5vw, 1.35rem);
+  text-align: left;
+  border: 1px solid rgba(124, 83, 255, 0.42);
+  border-radius: 17px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.025));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03), 0 18px 40px rgba(0,0,0,0.2);
+  backdrop-filter: blur(18px);
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.link-button:hover,
+.link-button:focus-visible {
+  transform: translateY(-3px);
+  border-color: rgba(255, 46, 191, 0.72);
+  background: linear-gradient(135deg, rgba(255,255,255,0.13), rgba(255,255,255,0.04));
+  outline: none;
+}
+
+.platform-icon {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  overflow: hidden;
+  font-weight: 900;
+  flex: 0 0 auto;
+}
+
+.platform-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+.spotify { color: #04130a; background: #1ed760; border-radius: 50%; padding: 8px; }
+.apple { background: linear-gradient(135deg, #ff6a88, #ff2d55); font-size: 34px; }
+.deezer { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3px; background: transparent; }
+.deezer span { align-self: end; border-radius: 1px; min-height: 12px; }
+.deezer span:nth-child(1) { height: 15px; background: #ffb000; }
+.deezer span:nth-child(2) { height: 24px; background: #ff6d00; }
+.deezer span:nth-child(3) { height: 31px; background: #ef2dff; }
+.deezer span:nth-child(4) { height: 39px; background: #00c2ff; }
+.deezer span:nth-child(5) { height: 46px; background: #00e676; }
+.youtube-music { color: #fff; background: #ff0000; border-radius: 50%; font-size: 22px; }
+.amazon { color: #00d6ff; background: transparent; font-size: 15px; letter-spacing: -0.08em; }
+.amazon::after { content: ""; width: 36px; height: 12px; margin-top: -12px; border-bottom: 3px solid #00d6ff; border-radius: 0 0 50% 50%; }
+.tidal { color: #ffffff; background: transparent; font-size: 44px; }
+.instagram-icon { background: radial-gradient(circle at 30% 110%, #ffd600 0 22%, #ff7a00 23% 38%, #ff0069 39% 62%, #d300c5 63% 78%, #7638fa 79%); font-size: 37px; }
+.arrow { justify-self: end; font-size: 2.4rem; font-weight: 300; color: rgba(255,255,255,0.82); }
+
+.connect {
+  width: min(100%, 420px);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 20px;
+  align-items: center;
+  margin: 34px auto 22px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.48em;
+  font-size: 0.78rem;
+}
+
+.connect span { height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25)); }
+.connect span:last-child { background: linear-gradient(90deg, rgba(255,255,255,0.25), transparent); }
+
+.wave {
+  height: 58px;
+  margin: 32px auto 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.wave i {
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--blue), var(--pink));
+}
+.wave i:nth-child(1), .wave i:nth-child(9) { height: 8px; }
+.wave i:nth-child(2), .wave i:nth-child(8) { height: 16px; }
+.wave i:nth-child(3), .wave i:nth-child(7) { height: 24px; }
+.wave i:nth-child(4), .wave i:nth-child(6) { height: 38px; }
+.wave i:nth-child(5) { height: 52px; }
+
+footer {
+  color: var(--muted);
+  font-size: 0.95rem;
+  letter-spacing: 0.18em;
+}
+
+@media (max-width: 520px) {
+  .page { padding: 28px 14px; }
+  .card { padding-top: 26px; }
+  .logo { width: 96px; height: 96px; font-size: 31px; }
+  .link-button { min-height: 66px; grid-template-columns: 48px 1fr 20px; padding: 12px 16px; border-radius: 15px; }
+  .platform-icon { width: 40px; height: 40px; }
+  .connect { letter-spacing: 0.28em; gap: 12px; }
+}
