@@ -5,9 +5,9 @@ Page artiste simple pour GitHub Pages.
 ## Voir localement
 
 Avec VSCode :
-1. Installer l’extension Live Server.
-2. Ouvrir `index.html`.
-3. Cliquer sur `Go Live`.
+1. Prérequis: Installer l’extension Live Server.
+2. Ouvrir `index.html`
+3. Cliquer sur `Go Live` en bas à droite de la barre de statut
 
 ## Modifier les liens
 
